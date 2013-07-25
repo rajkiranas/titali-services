@@ -144,10 +144,11 @@ public class QuickLearnResource {
         quickLearn.setOtherNotesInformation(info);
         quickLearn.setPreviousQuestion(inputRequest.getString("pq"));
         quickLearn.setPreviousQuestionInformation(info);
+        quickLearn.setVideoPath(inputRequest.getString("video_path"));        
  
-        quickLearnService.saveQuickUploadDetails(quickLearn);        
+        quickLearnService.saveQuickUploadDetails(quickLearn);
         response.put(GlobalConstants.STATUS,GlobalConstants.YES);                   
-        return response;       
+        return response;
     }
    
    
