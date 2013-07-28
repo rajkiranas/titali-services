@@ -79,21 +79,30 @@ public class AuthResource {
             try {
                 //authentication
                 UsernamePasswordToken token = new UsernamePasswordToken(inputRequest.getString(GlobalConstants.userName), inputRequest.getString(GlobalConstants.password));
-                token.setRememberMe(true);
+                //token.setRememberMe(true);
                 currentUser.login(token);
                 response.put(GlobalConstants.isAuthenticated, GlobalConstants.YES);
 
 
             } catch (UnknownAccountException uae) {
                 response.put(GlobalConstants.isAuthenticated, GlobalConstants.NO);
+                uae.printStackTrace();
 
             } catch (IncorrectCredentialsException ice) {
                 response.put(GlobalConstants.isAuthenticated, GlobalConstants.NO);
+                ice.printStackTrace();
 
             } catch (LockedAccountException lae) {
                 response.put(GlobalConstants.isAuthenticated, GlobalConstants.NO);
+                lae.printStackTrace();
             } catch (AuthenticationException ae) {
                 response.put(GlobalConstants.isAuthenticated, GlobalConstants.NO);
+                ae.printStackTrace();
+                //unexpected condition?  error?
+            }
+            catch (Exception e) {
+                response.put(GlobalConstants.isAuthenticated, GlobalConstants.NO);
+                e.printStackTrace();
                 //unexpected condition?  error?
             }
         }

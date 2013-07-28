@@ -144,7 +144,11 @@ public class QuickLearnResource {
         quickLearn.setOtherNotesInformation(info);
         quickLearn.setPreviousQuestion(inputRequest.getString("pq"));
         quickLearn.setPreviousQuestionInformation(info);
-        quickLearn.setVideoPath(inputRequest.getString("video_path"));        
+        
+        if(inputRequest.getString("video_path")!=null && !inputRequest.getString("video_path").trim().equals(GlobalConstants.EMPTY_STRING) && !inputRequest.getString("video_path").trim().equals("null")) {
+            System.out.println("inputRequest.getString(\"video_path\")="+inputRequest.getString("video_path"));
+           quickLearn.setVideoPath(inputRequest.getString("video_path"));
+       }
  
         quickLearnService.saveQuickUploadDetails(quickLearn);
         response.put(GlobalConstants.STATUS,GlobalConstants.YES);                   
@@ -157,7 +161,7 @@ public class QuickLearnResource {
         try {           
             s.setStd(inputRequest.getString("std"));             
         } catch (JSONException ex) {
-            Logger.getLogger(QuickLearnResource.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
          return s;
     }
@@ -167,7 +171,7 @@ public class QuickLearnResource {
         try {           
             s.setSub(inputRequest.getString("sub"));             
         } catch (JSONException ex) {
-            Logger.getLogger(QuickLearnResource.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
          return s;
     }
