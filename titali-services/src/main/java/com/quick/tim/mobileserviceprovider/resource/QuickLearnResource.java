@@ -43,6 +43,7 @@ public class QuickLearnResource {
     private static final String getstudQuickLearnDetails = "quickLearn";
     private static final String saveQuickUploadDetails="saveQuickUploadDetails";
     private static final String getquickLearnByUploadId="getquickLearnByUploadId";
+    private static final String deleteTopicByUploadId="deleteTopicByUploadId";
     
     @Context
     private ResourceContext resourceContext;
@@ -118,15 +119,19 @@ public class QuickLearnResource {
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
    public JSONObject  saveQuickUploadDetails(JSONObject inputRequest) throws JSONException {
-        System.out.println("userTrack="+inputRequest);
+        System.out.println("userTrack saveQuickUploadDetails() ="+inputRequest);
         JSONObject response =  new JSONObject();
         
         QuickLearn quickLearn=new QuickLearn(); 
         String uploadId=inputRequest.getString("uploadId");
         
-        if(!uploadId.equals("null")){             
+        
+        //edit upload
+        if(!uploadId.equals("null")){
              quickLearn.setUploadId(Integer.parseInt(uploadId));
-        }else{
+        }
+        // new upload
+        else{
              quickLearn.setUploadId(getMaxUplaodId());
         }
         
@@ -144,11 +149,16 @@ public class QuickLearnResource {
         quickLearn.setOtherNotesInformation(info);
         quickLearn.setPreviousQuestion(inputRequest.getString("pq"));
         quickLearn.setPreviousQuestionInformation(info);
+        String videoPath= inputRequest.getString("video_path");
+        //System.out.println("**** saving uploadId="+quickLearn.getUploadId());
+
         
-        if(inputRequest.getString("video_path")!=null && !inputRequest.getString("video_path").trim().equals(GlobalConstants.EMPTY_STRING) && !inputRequest.getString("video_path").trim().equals("null")) {
-            System.out.println("inputRequest.getString(\"video_path\")="+inputRequest.getString("video_path"));
-           quickLearn.setVideoPath(inputRequest.getString("video_path"));
-       }
+        
+        //&& !inputRequest.getString("video_path").trim().equals("null")
+       // if(videoPath!=null && !videoPath.trim().equals(GlobalConstants.EMPTY_STRING)) {
+            //System.out.println("***********inputRequest.getString(\"video_path\")="+videoPath);
+           quickLearn.setVideoPath(videoPath);
+     //  }
  
         quickLearnService.saveQuickUploadDetails(quickLearn);
         response.put(GlobalConstants.STATUS,GlobalConstants.YES);                   
@@ -199,6 +209,33 @@ public class QuickLearnResource {
        return quickLearnService.getMaxUplaodId();
     }
    
+    
+   @Path(deleteTopicByUploadId)
+   @POST
+   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces(MediaType.APPLICATION_JSON)
+   public JSONObject  deleteTopicByUploadId(JSONObject inputRequest) throws JSONException {
+        System.out.println("userTrack deleteTopicByUploadId() ="+inputRequest);
+        JSONObject response =  new JSONObject();
+        
+        String uploadId=inputRequest.getString("uploadId");
+        
+        
+        //deleting topic by upload id
+        if(!uploadId.equals("null")){
+             QuickLearn quickLearn=new QuickLearn(); 
+             quickLearn.setUploadId(Integer.parseInt(uploadId));
+             quickLearnService.deleteTopicByUploadId(quickLearn);
+             response.put(GlobalConstants.STATUS,GlobalConstants.YES);
+        }
+        // cannot delete topic
+        else{
+             response.put(GlobalConstants.STATUS,GlobalConstants.NO);
+        }      
+        return response;
+    }
+    
+    
 //    @Path(getVideo)
 //    @POST
 //    @Consumes(MediaType.APPLICATION_JSON)
@@ -255,20 +292,5 @@ public class QuickLearnResource {
 //
 //        return response;
 //    }
-//    
-//    
-//    
-
-    
-
-    
-
-  
-   
-    
-    
-    
-   
-   
     
 }

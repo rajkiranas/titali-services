@@ -29,7 +29,7 @@ public interface QuickLearnDAO {
     public void saveQuickUploadDetails(QuickLearn quickLearn);
     public List<MasteParmBean> getquickLearnByUploadId(int uploadId);
     public List getMaxUplaodId();
-    
+    public void deleteTopicByUploadId(QuickLearn quickLearn);
 
    
 }

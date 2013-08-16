@@ -73,4 +73,8 @@ QuickLearnDAO quickLearnDAO;
         return id;
     }
     
+    public void deleteTopicByUploadId(QuickLearn quickLearn) {
+       quickLearnDAO.deleteTopicByUploadId(quickLearn);
+    }
+    
 }

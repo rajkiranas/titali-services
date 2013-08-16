@@ -186,6 +186,9 @@ public class QuickLearnDAOImpl implements QuickLearnDAO {
       return (List<QuickLearn>)hibernateTemplate.find(getMaxUplaodIdByQry);
    }
     
+   public void deleteTopicByUploadId(QuickLearn quickLearn) {
+        hibernateTemplate.delete(quickLearn);
+    }
     
 
 }
