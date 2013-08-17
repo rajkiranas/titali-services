@@ -63,7 +63,8 @@ public class QuickLearnResource {
         JSONObject response = new JSONObject();
         //org.apache.shiro.mgt.SecurityManager securityManager = factory.getInstance();
         List<MasteParmBean> list = quickLearnService.getWhatsNewForMe(inputRequest.getString("subject"));
-        Gson gson = new Gson();
+        
+        Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").create();       
         String json = gson.toJson(list);
         response.put(GlobalConstants.WHATSNEW, json);
         
@@ -120,11 +121,10 @@ public class QuickLearnResource {
    @Produces(MediaType.APPLICATION_JSON)
    public JSONObject  saveQuickUploadDetails(JSONObject inputRequest) throws JSONException {
         System.out.println("userTrack saveQuickUploadDetails() ="+inputRequest);
-        JSONObject response =  new JSONObject();
         
+        //fetching data from input json        
         QuickLearn quickLearn=new QuickLearn(); 
         String uploadId=inputRequest.getString("uploadId");
-        
         
         //edit upload
         if(!uploadId.equals("null")){
@@ -150,19 +150,33 @@ public class QuickLearnResource {
         quickLearn.setPreviousQuestion(inputRequest.getString("pq"));
         quickLearn.setPreviousQuestionInformation(info);
         String videoPath= inputRequest.getString("video_path");
-        //System.out.println("**** saving uploadId="+quickLearn.getUploadId());
-
-        
-        
-        //&& !inputRequest.getString("video_path").trim().equals("null")
-       // if(videoPath!=null && !videoPath.trim().equals(GlobalConstants.EMPTY_STRING)) {
-            //System.out.println("***********inputRequest.getString(\"video_path\")="+videoPath);
-           quickLearn.setVideoPath(videoPath);
-     //  }
+        quickLearn.setVideoPath(videoPath);
  
-        quickLearnService.saveQuickUploadDetails(quickLearn);
+        //calling service for saving details
+        quickLearnService.saveQuickUploadDetails(quickLearn);        
+        JSONObject response =  new JSONObject();
         response.put(GlobalConstants.STATUS,GlobalConstants.YES);                   
+        
+        sendWhatsNewNotificationToStudents(inputRequest);
+       
+        
         return response;
+    }
+   
+   private void sendWhatsNewNotificationToStudents(JSONObject inputRequest)
+    {
+        try 
+        {
+            //fetch dashboard of the user
+         WhatsNewResource resource = resourceContext.getResource(WhatsNewResource.class);
+         resource.sendWhatsNewNotificationToStudents(inputRequest);
+            
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+         
     }
    
    
@@ -292,5 +306,7 @@ public class QuickLearnResource {
 //
 //        return response;
 //    }
+
+    
     
 }

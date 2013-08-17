@@ -49,6 +49,7 @@ public class UserMasterDaoImpl implements  UserMasterDao {
             ProjectionList pl = Projections.projectionList();
             pl.add(Projections.property("prn"), "prn");
             pl.add(Projections.property("name"), "name");
+             pl.add(Projections.property("username"), "username");
             pl.add(Projections.property("creationdate"), "creationdate");
             pl.add(Projections.property("mobile"), "mobile");
             pl.add(Projections.property("studentMasters.div"),"div");
