@@ -130,10 +130,10 @@ public class QuickLearnResource {
         if(!uploadId.equals("null")){
              quickLearn.setUploadId(Integer.parseInt(uploadId));
         }
-        // new upload
-        else{
-             quickLearn.setUploadId(getMaxUplaodId());
-        }
+//        // new upload - id not need from max as sequence is applied
+//        else{
+//             quickLearn.setUploadId(getMaxUplaodId());
+//        }
         
         String uploadedBy=inputRequest.getString("uploadedBy"); 
         String info=quickLearn.getUploadId()+"-"+uploadedBy;
@@ -155,8 +155,10 @@ public class QuickLearnResource {
         //calling service for saving details
         quickLearnService.saveQuickUploadDetails(quickLearn);        
         JSONObject response =  new JSONObject();
-        response.put(GlobalConstants.STATUS,GlobalConstants.YES);                   
+        response.put(GlobalConstants.STATUS,GlobalConstants.YES);
         
+        //setting newly sequence generated upload id - so that whats new item id will be same as upload id
+        inputRequest.put("uploadId",quickLearn.getUploadId());
         sendWhatsNewNotificationToStudents(inputRequest);
        
         
@@ -241,6 +243,8 @@ public class QuickLearnResource {
              quickLearn.setUploadId(Integer.parseInt(uploadId));
              quickLearnService.deleteTopicByUploadId(quickLearn);
              response.put(GlobalConstants.STATUS,GlobalConstants.YES);
+             
+             deleteWhatsNewNotification(quickLearn.getUploadId());
         }
         // cannot delete topic
         else{
@@ -249,6 +253,22 @@ public class QuickLearnResource {
         return response;
     }
     
+   
+    private void deleteWhatsNewNotification(int uploadId) {
+        try 
+        {
+            //fetch dashboard of the user
+         WhatsNewResource resource = resourceContext.getResource(WhatsNewResource.class);
+         resource.deleteWhatsNewNotification(uploadId);
+            
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+         
+        
+    }
     
 //    @Path(getVideo)
 //    @POST
@@ -306,6 +326,8 @@ public class QuickLearnResource {
 //
 //        return response;
 //    }
+
+   
 
     
     

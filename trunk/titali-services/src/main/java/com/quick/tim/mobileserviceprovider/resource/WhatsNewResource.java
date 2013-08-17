@@ -52,5 +52,9 @@ public class WhatsNewResource {
 //     response.put(GlobalConstants.QUICKLEARNLIST, json);     
 //     return response;
     }
+
+    void deleteWhatsNewNotification(int uploadId) {
+        whatsNewService.deleteWhatsNewNotification(uploadId);
+    }
     
 }

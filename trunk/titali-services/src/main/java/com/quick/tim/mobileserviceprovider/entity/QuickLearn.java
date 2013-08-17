@@ -1,7 +1,6 @@
 package com.quick.tim.mobileserviceprovider.entity;
 // Generated 5 Jun, 2013 6:08:00 PM by Hibernate Tools 3.2.1.GA
 
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,10 +8,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,6 +25,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="quick_learn", schema="public"
 )
+
+@SequenceGenerator(name = "itemid", sequenceName = "public.seq_quicklearn_uploadid")
 public class QuickLearn  implements java.io.Serializable {
 
 
@@ -70,7 +74,7 @@ public class QuickLearn  implements java.io.Serializable {
     }
    
      @Id 
-    
+    @GeneratedValue(generator = "itemid", strategy = GenerationType.SEQUENCE)
     @Column(name="upload_id", unique=true, nullable=false)
     public int getUploadId() {
         return this.uploadId;

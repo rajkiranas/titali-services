@@ -125,4 +125,12 @@ public class WhatsNewDaoImpl implements WhatsNewDao {
             }
         }
     } */
+
+    @Override
+    public void deleteWhatsNewNotification(int uploadId) {
+        
+        Whatsnew whatsnew = new Whatsnew(uploadId);
+        hibernateTemplate.delete(whatsnew);
+        
+    }
 }
