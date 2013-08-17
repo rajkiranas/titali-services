@@ -52,6 +52,7 @@ public class WhatsNewDaoImpl implements WhatsNewDao {
             ProjectionList proList = Projections.projectionList();
             proList.add(Projections.property("displaynotification"),"displaynotification");
             proList.add(Projections.property("topic"),"topic");
+            proList.add(Projections.property("itemid"),"itemid");
             detCri.setProjection(proList);
             detCri.add(Restrictions.eq("std.std", forStd));
             
