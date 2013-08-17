@@ -24,4 +24,6 @@ public interface WhatsNewDao {
     public List<Whatsnew> getWhatsNewForMe(String forStd, String forDiv);
     public List<MasteParmBean> getWhatsNewForMe(String subject);
     public void sendWhatsNewNotificationToStudents(Whatsnew whatsNew);
+
+    public void deleteWhatsNewNotification(int uploadId);
 }

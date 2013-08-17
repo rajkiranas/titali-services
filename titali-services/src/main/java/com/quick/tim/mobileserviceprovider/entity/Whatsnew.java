@@ -24,7 +24,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name="whatsnew", schema="public"
 )
 
-@SequenceGenerator(name = "itemid", sequenceName = "public.seq_whatsnew_itemid")
+
 public class Whatsnew  implements java.io.Serializable {
 
 
@@ -58,7 +58,6 @@ public class Whatsnew  implements java.io.Serializable {
      
     @Id    
     @Column(name="itemid", unique=true, nullable=false)
-    @GeneratedValue(generator = "itemid", strategy = GenerationType.SEQUENCE)
     public int getItemid() {
         return this.itemid;
     }

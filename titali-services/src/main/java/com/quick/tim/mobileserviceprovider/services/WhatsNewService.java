@@ -61,6 +61,7 @@ public class WhatsNewService
            
            Whatsnew wn = new Whatsnew();
            wn.setReleasedate(new Date());
+           wn.setItemid(Integer.parseInt(inputRequest.getString("uploadId")));
            wn.setBywhom(inputRequest.getString("uploadedBy"));
            wn.setDisplaynotification(displayNotification);
            
@@ -71,5 +72,9 @@ public class WhatsNewService
            whatsNewDao.sendWhatsNewNotificationToStudents(wn);
            
        } 
+
+    public void deleteWhatsNewNotification(int uploadId) {
+       whatsNewDao.deleteWhatsNewNotification(uploadId);
+    }
     
 }
