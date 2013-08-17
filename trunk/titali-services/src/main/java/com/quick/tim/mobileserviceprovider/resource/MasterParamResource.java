@@ -61,7 +61,7 @@ public class MasterParamResource {
     public JSONObject getStandardWiseSubject(JSONObject inputRequest) throws JSONException {
         System.out.println("userTrack="+inputRequest);
         JSONObject response =  new JSONObject();
-        List<MasteParmBean> list =  masterResourceService.getStandardWisesubjects("I");
+        List<MasteParmBean> list =  masterResourceService.getStandardWisesubjects(inputRequest.getString("standard"));
         Gson gson = new Gson();
         String json = gson.toJson(list);
         response.put(GlobalConstants.STDSUBLIST, json);

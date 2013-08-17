@@ -11,6 +11,7 @@ import com.quick.tim.mobileserviceprovider.bean.MasteParmBean;
 
 
 import java.util.List;
+import org.codehaus.jettison.json.JSONObject;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
 import org.hibernate.transform.Transformers;
@@ -53,7 +54,9 @@ public class WhatsNewDaoImpl implements WhatsNewDao {
             proList.add(Projections.property("topic"),"topic");
             detCri.setProjection(proList);
             detCri.add(Restrictions.eq("std.std", forStd));
-            detCri.add(Restrictions.eq("fordiv", forDiv));
+            
+            //intentionally removed division restriction
+            ///detCri.add(Restrictions.eq("fordiv", forDiv));
             detCri.setResultTransformer(Transformers.aliasToBean(Whatsnew.class));
             whatsNewList = hibernateTemplate.findByCriteria(detCri);
             
@@ -87,6 +90,12 @@ public class WhatsNewDaoImpl implements WhatsNewDao {
         return whatsNewList;
         
     }
+      
+    @Override
+      public void sendWhatsNewNotificationToStudents(Whatsnew whatsnew)
+      {
+          hibernateTemplate.save(whatsnew);
+      }
 
   /*  public List<Ssconversations> getAllMessages(String userId, List<Ofgroupuser> ofgroupuserList, String view) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Ssconversations.class).createAlias("ssmailbox", "ssmailbox");

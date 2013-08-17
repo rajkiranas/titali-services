@@ -12,6 +12,7 @@ import com.quick.tim.mobileserviceprovider.global.GlobalConstants;
 
 
 import java.util.List;
+import org.codehaus.jettison.json.JSONObject;
 import org.hibernate.criterion.*;
 import org.hibernate.transform.Transformers;
 
@@ -22,4 +23,5 @@ import org.hibernate.transform.Transformers;
 public interface WhatsNewDao {
     public List<Whatsnew> getWhatsNewForMe(String forStd, String forDiv);
     public List<MasteParmBean> getWhatsNewForMe(String subject);
+    public void sendWhatsNewNotificationToStudents(Whatsnew whatsNew);
 }
