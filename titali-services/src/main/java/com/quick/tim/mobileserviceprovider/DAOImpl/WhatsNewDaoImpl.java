@@ -53,9 +53,11 @@ public class WhatsNewDaoImpl implements WhatsNewDao {
             proList.add(Projections.property("displaynotification"),"displaynotification");
             proList.add(Projections.property("topic"),"topic");
             proList.add(Projections.property("itemid"),"itemid");
+            proList.add(Projections.property("releasedate"),"releasedate");
+            
             detCri.setProjection(proList);
             detCri.add(Restrictions.eq("std.std", forStd));
-            
+            detCri.addOrder(Order.desc("releasedate"));
             //intentionally removed division restriction
             ///detCri.add(Restrictions.eq("fordiv", forDiv));
             detCri.setResultTransformer(Transformers.aliasToBean(Whatsnew.class));

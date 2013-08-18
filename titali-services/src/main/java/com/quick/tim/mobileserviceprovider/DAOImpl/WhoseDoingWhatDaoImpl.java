@@ -57,5 +57,11 @@ public class WhoseDoingWhatDaoImpl implements WhoseDoingWhatDao{
         return doingWhats;
     }
 
+    @Override
+    public void sendWhosDoingWhatNotificationToStudents(Whoisdoingwhat w) 
+    {
+        hibernateTemplate.save(w);
+    }
+
     
 }

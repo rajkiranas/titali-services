@@ -6,9 +6,12 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +22,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="whoisdoingwhat", schema="public"
 )
+@SequenceGenerator(name = "itemid", sequenceName = "public.seq_whoisdoingwhat_activityid")
 public class Whoisdoingwhat  implements java.io.Serializable {
 
 
@@ -31,6 +35,7 @@ public class Whoisdoingwhat  implements java.io.Serializable {
      private String fordiv;
      private String topic;
      private String displaynotification;
+     private int uploadId;
 
     public Whoisdoingwhat() {
     }
@@ -51,8 +56,8 @@ public class Whoisdoingwhat  implements java.io.Serializable {
        this.displaynotification = displaynotification;
     }
    
-     @Id 
-    
+    @Id 
+    @GeneratedValue(generator = "itemid", strategy = GenerationType.SEQUENCE)
     @Column(name="activityid", unique=true, nullable=false)
     public int getActivityid() {
         return this.activityid;
@@ -132,6 +137,15 @@ public class Whoisdoingwhat  implements java.io.Serializable {
     
     public void setDisplaynotification(String displaynotification) {
         this.displaynotification = displaynotification;
+    }
+
+    @Column(name="uploadid")
+    public int getUploadId() {
+        return uploadId;
+    }
+
+    public void setUploadId(int uploadId) {
+        this.uploadId = uploadId;
     }
 
 

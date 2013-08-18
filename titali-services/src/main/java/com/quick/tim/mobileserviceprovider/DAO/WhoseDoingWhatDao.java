@@ -19,4 +19,6 @@ import org.hibernate.transform.Transformers;
  */
 public interface WhoseDoingWhatDao {
     public List<MasteParmBean> getWhoIsDoingWhat(String forStd, String forDiv);
+
+    public void sendWhosDoingWhatNotificationToStudents(Whoisdoingwhat w);
 }
