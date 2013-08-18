@@ -10,6 +10,7 @@ package com.quick.tim.mobileserviceprovider.resource;
 
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.quick.tim.mobileserviceprovider.bean.MasteParmBean;
 import com.quick.tim.mobileserviceprovider.entity.*;
 import com.quick.tim.mobileserviceprovider.services.NoticeBoardService;
@@ -45,7 +46,8 @@ public class DashboardResource {
         JSONObject response = new JSONObject();
         
         List<Whatsnew> list = whatsNewService.getWhatsNewForMe(userProfile.getString("standard"), userProfile.getString("division"));
-        Gson gson = new Gson();
+        //Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").create();       
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").create();       
         String json = gson.toJson(list);
         response.put(GlobalConstants.WHATSNEW, json);
 

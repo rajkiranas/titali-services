@@ -94,6 +94,7 @@ public class GlobalConstants {
     public static final String StandardResource="/StandardMaster";
     public static final String QuickResource="/QuickMaster";
     public static final String WhatsNewResource="/WhatsNew";
+    public static final String WhosDoingWhatResource="/WhosDoingWhat";
     public static final String QUICKLEARNLIST="quickLearnList";
     public static final String MasterParamResource = "/MasterParam";
     public static final String STDSUBLIST = "stdsub";
@@ -108,6 +109,9 @@ public class GlobalConstants {
      public static final String EXAMQUESTIONLIST ="examQuestionList";
      public static final String space =" ";
      public static final String has ="has";
+     public static final String is ="is";
+     public static final String in ="in";
+     public static final String going_through ="going through";
      public static final String released ="released";
      public static final String updated ="updated";
      public static final String topicInformation ="topic information";
