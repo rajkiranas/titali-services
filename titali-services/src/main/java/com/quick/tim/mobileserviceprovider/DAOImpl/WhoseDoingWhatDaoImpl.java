@@ -44,10 +44,12 @@ public class WhoseDoingWhatDaoImpl implements WhoseDoingWhatDao{
             proList.add(Projections.property("activityid"),"activityId");
             proList.add(Projections.property("bywhom"),"byWhom");
             proList.add(Projections.property("displaynotification"),"displaynotification");
-            detCri.setProjection(proList);
+            proList.add(Projections.property("uploadId"),"uploadId");
             
+            detCri.setProjection(proList);            
             detCri.add(Restrictions.eq("std.std", forStd));
-            detCri.add(Restrictions.eq("fordiv", forDiv));
+            //intentionally removed
+            //detCri.add(Restrictions.eq("fordiv", forDiv));
             detCri.setResultTransformer(Transformers.aliasToBean(MasteParmBean.class));
             doingWhats = hibernateTemplate.findByCriteria(detCri);
 
